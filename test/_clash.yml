@@ -5,6 +5,9 @@
     remove_printable:
       - rm -rf assets/printables
       - echo "Printables removed"
+    copy_printable:
+      - cp -r assets/printables _site/assets/
+      - echo "Printables copied"
 -
   title: "Test Build"
   dir: test-site
@@ -12,12 +15,18 @@
   build: true
   after: 
     - reset_site
+  before_compare:
+    - copy_printable
   compare: 
     - _expected/index.html _site/index.html
     - _expected/2015/04/29/foo/index.html _site/2015/04/29/foo/index.html
     - _expected/stylesheets/all-.css _site/stylesheets/all-.css
     - _expected/assets/images/xor.png _site/assets/images/xor.png
     - _expected/images/octopress-printable/printer.png _site/images/octopress-printable/printer.png
+    - _expected/assets/printables/2015-04-29-foo.pdf.markdown _site/assets/printables/2015-04-29-foo.pdf.markdown
+    - _expected/assets/printables/2015-04-29-foo.pdf.header.tex _site/assets/printables/2015-04-29-foo.pdf.header.tex
+    - _expected/assets/printables/2015-04-29-foo.tex _site/assets/printables/2015-04-29-foo.tex
+    - _expected/assets/printables/2015-04-29-foo.sh _site/assets/printables/2015-04-29-foo.sh
     - _expected/assets/printables/2015-04-29-foo.aux _site/assets/printables/2015-04-29-foo.aux
     - _expected/assets/printables/2015-04-29-foo.bbl _site/assets/printables/2015-04-29-foo.bbl
     - _expected/assets/printables/2015-04-29-foo.blg _site/assets/printables/2015-04-29-foo.blg
