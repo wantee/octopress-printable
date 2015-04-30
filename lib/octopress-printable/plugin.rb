@@ -18,14 +18,14 @@ module Octopress
       end
 
       def generate(site, config)
-        conf = inject_configs
+        @conf = inject_configs
 
-        posts_dir = conf['posts_dir']
-        printables_dir = conf['printables_dir']
-        source_dir = conf['source_dir']
-        blog_url = conf['blog_url']
-        bib_dir = conf['bibliography_dir']
-        bib = conf['bibliography']
+        posts_dir = @conf['posts_dir']
+        printables_dir = @conf['printables_dir']
+        source_dir = @conf['source_dir']
+        blog_url = @conf['blog_url']
+        bib_dir = @conf['bibliography_dir']
+        bib = @conf['bibliography']
 
         if !File.exists?(printables_dir)
           FileUtils.mkdir_p(printables_dir)
@@ -45,8 +45,8 @@ module Octopress
       end
   
       def inject_configs
-        conf = self.config
-        conf = Jekyll::Utils.deep_merge_hashes(YAML.load(Plugin.default_config), conf)
+        @conf = self.config
+        @conf = Jekyll::Utils.deep_merge_hashes(YAML.load(Plugin.default_config), @conf)
       end
 
       def self.default_config
@@ -58,20 +58,13 @@ blog_url:            "http://example.com"
 bibliography_dir:    "_bibliography"
 bibliography:        "references.bib"
 
+dump_tex_file:       false
+dump_markdown_file:  false
+dump_bib_file:       false
+
 CONFIG
       end
 
-      def post_url(user, project, source_dir)
-        cname = "#{source_dir}/CNAME"
-        url = if File.exists?(cname)
-          "http://#{IO.read(cname).strip}"
-        else
-          "http://#{user.downcase}.github.io"
-        end
-        url += "/#{project}" unless project == ''
-        url
-      end
-      
       def gen_pdf(mdfile, pdffile, source_dir, posts_dir, blog_url, bib_dir, bib)
         pdfdir = File.dirname(pdffile)
         if ! File.exists?(pdfdir)
@@ -93,9 +86,6 @@ CONFIG
         latex = LatexConverter.new
         converters << latex
 
-#        has_bib = false
-#        has_gist = false
-      
         tmpfile="#{pdffile}.markdown"
         comment = false
         File.open(tmpfile, 'w') do |post|
@@ -133,62 +123,57 @@ CONFIG
           end
         end 
       
-#        texfile=pdffile.sub(/.pdf$/, '.tex')
-#        base=pdffile.sub(/.pdf$/, '')
-#        pkgfile="#{pdfdir}/header.tex"
-#        system "echo > #{pkgfile}"
-#        if has_gist
-#          system "echo \"\\usepackage{minted}\" >> #{pkgfile}"
-#        end
-#      
-#        if has_bib
-#          system "echo \"\\usepackage[sort&compress, numbers]{natbib}\" >> #{pkgfile}"
-#      
-#          system "pandoc -s --include-in-header=#{pkgfile} #{tmpfile} -o #{texfile} "
-#      	system "xelatex -output-directory=#{pdfdir} -no-pdf --interaction=nonstopmode #{base} >/dev/null"
-#      	system "bibtex #{base} >/dev/null"
-#      	system "xelatex -output-directory=#{pdfdir} -no-pdf --interaction=nonstopmode #{base} >/dev/null"
-#      	system "xelatex -output-directory=#{pdfdir} --interaction=nonstopmode #{base} >/dev/null"
-#      
-#          system "rm -rf #{bib}"
-#      	system "rm -rf #{pdfdir}/*.aux"
-#      	system "rm -rf #{pdfdir}/*.log"
-#      	system "rm -rf #{pdfdir}/*.lot"
-#      	system "rm -rf #{pdfdir}/*.out"
-#      	system "rm -rf #{pdfdir}/*.toc"
-#      	system "rm -rf #{pdfdir}/*.blg"
-#      	system "rm -rf #{pdfdir}/*.bbl"
-#      	system "rm -rf #{pdfdir}/*.lof"
-#      	system "rm -rf #{pdfdir}/*.xdv"
-#      	system "rm -rf #{pdfdir}/*.hst"
-#      	system "rm -rf #{pdfdir}/*.ver"
-#      	system "rm -rf #{pdfdir}/*.synctex.gz"
-#        else
-#          system "pandoc --include-in-header=#{pkgfile} --latex-engine=xelatex -N #{tmpfile} -o #{pdffile}"
-#        end
-#      
-#        system "rm -rf #{pkgfile}"
-#        system "rm -rf #{tmpfile}"
-#        system "rm -rf input.pyg"
-      end
-      
-      # from image_tag plugin
-      def get_img_label(markup)
-        @img = nil
-        attributes = ['class', 'src', 'width', 'height', 'title']
-      
-        if markup =~ /(?<class>\S.*\s+)?(?<src>(?:https?:\/\/|\/|\S+\/)\S+)(?:\s+(?<width>\d+))?(?:\s+(?<height>\d+))?(?<title>\s+.+)?/i
-          @img = attributes.reduce({}) { |img, attr| img[attr] = $~[attr].strip if $~[attr]; img }
-          if /(?:"|')(?<title>[^"']+)?(?:"|')\s+(?:"|')(?<alt>[^"']+)?(?:"|')/ =~ @img['title']
-            @img['title']  = title
-            @img['alt']    = alt
-          else
-      #@img['alt']    = @img['title'].gsub!(/"/, '&#34;') if @img['title']
-            @img['alt']    = @img['title']
+        texfile = pdffile.sub(/.pdf$/, '.tex')
+        base = pdffile.sub(/.pdf$/, '')
+        pkgfile = "#{pdffile}.header.tex"
+
+        File.open(pkgfile, "w") { |f|
+          if img.match
+            f.puts '\\usepackage{graphicx}'
+            f.puts '\\usepackage[all]{hypcap}'
           end
-          @img['class'].gsub!(/"/, '') if @img['class']
+
+          if gist.match
+            f.puts '\\usepackage{minted}'
+          end
+      
+          if bib.match
+            f.puts '\\usepackage[sort&compress, numbers]{natbib}'
+          end
+        }
+
+        system "pandoc -s -N --include-in-header=#{pkgfile} #{tmpfile} -o #{texfile} "
+      	system "xelatex -output-directory=#{pdfdir} -no-pdf --interaction=nonstopmode #{base} >/dev/null"
+        if bib.match
+      	  system "bibtex #{base} >/dev/null"
         end
-        @img
+      	system "xelatex -output-directory=#{pdfdir} -no-pdf --interaction=nonstopmode #{base} >/dev/null"
+      	system "xelatex -output-directory=#{pdfdir} --interaction=nonstopmode #{base} >/dev/null"
+      
+      	FileUtils.rm_f("#{base}.aux")
+      	FileUtils.rm_f("#{base}.log")
+      	FileUtils.rm_f("#{base}.lot")
+      	FileUtils.rm_f("#{base}.out")
+      	FileUtils.rm_f("#{base}.toc")
+      	FileUtils.rm_f("#{base}.blg")
+      	FileUtils.rm_f("#{base}.bbl")
+      	FileUtils.rm_f("#{base}.lof")
+      	FileUtils.rm_f("#{base}.xdv")
+      	FileUtils.rm_f("#{base}.hst")
+      	FileUtils.rm_f("#{base}.ver")
+      	FileUtils.rm_f("#{base}.synctex.gz")
+        FileUtils.rm_f("#{File.basename(base)}.pyg")
+      
+        if !@conf['dump_tex_file']
+          FileUtils.rm_f("#{texfile}")
+          FileUtils.rm_f("#{pkgfile}")
+        end
+        if !@conf['dump_markdown_file']
+          FileUtils.rm_f("#{tmpfile}")
+        end
+        if !@conf['dump_bib_file']
+          bib.cleanup
+        end
       end
       
     end

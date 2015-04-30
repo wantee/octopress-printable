@@ -12,13 +12,13 @@ module Octopress
       def convert(line)
         str = line
         if /##*\s*References/ =~ str
-          ""
+          return ""
         end
       
         if /{% bibliography .*? %}/ =~ str
           @match = true
 
-          str = "\\bibliographystyle{unsrt}\\bibliography{#{File.basename(@tgt_bib, ".*")}}"
+          str = "\\bibliographystyle{unsrt}\\bibliography{#{@tgt_bib.sub(/\..*$/, "")}}"
       
           gen_bib("#{@src_bib}", "#{@tgt_bib}")
         end
@@ -44,6 +44,10 @@ module Octopress
             end
           end
         end
+      end
+
+      def cleanup()
+        File.delete(@tgt_bib)
       end
 
     end

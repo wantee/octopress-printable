@@ -5,3 +5,7 @@ blog_url:            "http://localhost:4000"
 bibliography_dir:    "_bibliography"
 bibliography:        "references.bib"
 
+dump_tex_file:       false
+dump_markdown_file:  false
+dump_bib_file:       false
+
