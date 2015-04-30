@@ -6,6 +6,10 @@ module Octopress
         url = url.sub(/^[^0-9]*-/, '')
         url = url.sub(/-$/, '')
       end
+
+      def latex(*p)
+        ""
+      end
     end
   end
 end

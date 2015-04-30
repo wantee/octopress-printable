@@ -5,8 +5,8 @@ module Octopress
       def initialize(src_bib, tgt_bib)
         super()
 
-        @src_bib=src_bib
-        @tgt_bib=tgt_bib
+        @src_bib = src_bib
+        @tgt_bib = tgt_bib
       end
 
       def convert(line)

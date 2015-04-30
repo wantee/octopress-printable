@@ -6,6 +6,7 @@ module Octopress
     autoload :BibConverter,        'octopress-printable/bib'
     autoload :GistConverter,       'octopress-printable/gist'
     autoload :PostLinkConverter,   'octopress-printable/post_link'
+    autoload :LatexConverter,      'octopress-printable/latex'
 
     class Plugin < Ink::Plugin
 
@@ -80,8 +81,8 @@ CONFIG
         converters = []
         math = MathConverter.new
         converters << math
-#        img = ImgConverter.new
-#        converters << img
+        img = ImgConverter.new(source_dir)
+        converters << img
         bib = BibConverter.new("#{source_dir}/#{bib_dir}/#{bib}",
                 "#{pdfdir}/#{bib}")
         converters << bib
@@ -89,6 +90,8 @@ CONFIG
         converters << gist
         post_link = PostLinkConverter.new(source_dir, posts_dir, blog_url)
         converters << post_link
+        latex = LatexConverter.new
+        converters << latex
 
 #        has_bib = false
 #        has_gist = false
@@ -114,6 +117,8 @@ CONFIG
                 next
               end
       
+              line = line.gsub(/{% comment %} (.*?) {% endcomment %}/, "")
+
               line = line.gsub(/\* list element with functor item/, '')
               line = line.gsub(/{:toc}/, '\tableofcontents')
       
@@ -123,18 +128,6 @@ CONFIG
                 line = converter.convert(line)
               end
 
-#              if /{% img (?<markup>.*) %}/ =~ line
-#                @img = get_img_label(markup)
-#                line="\\begin{figure}[h]\\centering\\includegraphics[width=\\textwidth]{#{source_dir}/#{@img['src']}}\\caption{#{@img['title']}}\\label{#{@img['alt']}}\\end{figure}"
-#              end
-#      
-#              while /{% comment %} FOR-LATEX (?<markup>.*) {% endcomment %}/ =~ line
-#                line = line.sub(/{% comment %} FOR-LATEX (.*?) {% endcomment %}/, markup)
-#              end
-#      
-#              line = line.gsub(/{% comment %} (.*?) {% endcomment %}/, "")
-#      
-      
               post.puts line
             end  
           end

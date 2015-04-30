@@ -14,6 +14,8 @@ module Octopress
         str = line
 
         while /{% post_link (?<markup>[^\s]+)(?<text>\s+.+)? %}/ =~ str
+          @match = true
+
           /^(?<year>\d+)-(?<month>\d+)-(?<day>\d+)-(?<title>.*)/ =~ markup
 
           if ! text

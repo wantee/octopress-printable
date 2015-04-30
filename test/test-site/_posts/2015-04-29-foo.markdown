@@ -12,7 +12,7 @@ Refering equation \eqref{eq:ellipse},  $\forall n, x\_i^n = x\_i$.
 
 ## Image
 
-Include figure{% comment %} FOR-LATEX (\autoref{fig:xor}) {% endcomment %}.
+See following figure{{ 'fig:xor' | latex:autoref }}.
 
 {% img center /assets/images/xor.png "fig:xor" title:"Figure Example" %}
 
@@ -24,6 +24,8 @@ Include figure{% comment %} FOR-LATEX (\autoref{fig:xor}) {% endcomment %}.
 ## Post Link
 
 {% post_link 2015-04-29-foo %} 
+
+Awesome paper{% cite mikolov2013efficient %}.
 
 ## References
 

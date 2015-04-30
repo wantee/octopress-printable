@@ -1,50 +1,53 @@
 module Octopress
   module Printable
-    class BibConverter < Converter
+    class ImgConverter < Converter
 
-      def initialize(src_bib, tgt_bib)
+      TITLE_REGEX = /title:['|"](.+?)['|"]/
+
+      def initialize(source_dir)
         super()
 
-        @src_bib=src_bib
-        @tgt_bib=tgt_bib
+        @source_dir = source_dir
       end
 
       def convert(line)
-        if /##*\s*References/ =~ line
-          ""
-        end
-      
-        if /{% bibliography .*? %}/ =~ line
+        str = line
+
+        if /{% img (?<markup>.*) %}/ =~ str
           @match = true
 
-          str = "\\bibliographystyle{unsrt}\\bibliography{#{File.basename(@tgt_bib, ".*")}}"
-      
-          gen_bib("#{@src_bib}", "#{@tgt_bib}")
+          img = get_img_label(markup)
+          str="\\begin{figure}[h]\\centering\\includegraphics[width=\\textwidth]{#{@source_dir}/#{img['src']}}\\caption{#{img['title']}}\\label{#{img['alt']}}\\end{figure}"
         end
-      
-        while /{% cite\s+(?<citation>.*?)\s+%}/ =~ line
-          @match = true
-          citation = citation.sub(/\s+/, ',')
-          str = line.sub(/{% cite\s+(.*?)\s+%}/, "\\cite{#{citation}}")
-        end
-
+ 
         str
       end
 
-      def gen_bib(obib, bib)
-        File.open(obib, 'r') do |f|
-          File.open(bib, 'w') do |o|
-            while l = f.gets
-              if /<a\s+href="?(?<url>.*?)"?\s*>(?<text>.*?)<\/a>/ =~ l
-                l = l.sub(/<a\s+href=(.*?)>(.*?)<\/a>/, "\\href{#{url}}{#{text}}")
-              end
-      
-              o.puts l
-            end
+      # from octopress-image-tag plugin
+      def get_img_label(markup)
+        title = markup.scan(TITLE_REGEX).flatten.compact.last
+        markup.gsub!(TITLE_REGEX, '')
+
+        if markup =~ /(?<class>\S.*\s+)?(?<src>(?:https?:\/\/|\/|\S+\/)\S+)(?:\s+(?<width>\d\S+))?(?:\s+(?<height>\d\S+))?(?<alt>\s+.+)?/i
+          attributes = ['class', 'src', 'width', 'height', 'alt']
+          image = attributes.reduce({}) { |img, attr| img[attr] ||= $~[attr].strip if $~[attr]; img }
+          text = image['alt']
+
+          # Allow parsing "title" "alt"
+          if text =~ /(?:"|')(?<title>[^"']+)?(?:"|')\s+(?:"|')(?<alt>[^"']+)?(?:"|')/
+            image['title']  = title
+            image['alt']    = alt
+          else
+            # Set alt text and title from text
+            image['alt'].gsub!(/"/, '') if image['alt']
           end
         end
-      end
 
+        image['title'] ||= title
+        image['alt'] ||= title
+
+        image
+       end
     end
   end
 end
