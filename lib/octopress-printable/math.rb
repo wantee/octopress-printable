@@ -3,14 +3,20 @@ module Octopress
     class MathConverter < Converter
 
       def convert(line)
-        @match = !!line.gsub!(/\$\$\s*\\begin{equation}/, '\\begin{equation}')
-        @match = !!line.gsub!(/\\end{equation}\s*\$\$/, '\\end{equation}')
+        str = line.gsub(/\$\$\s*\\begin{equation}/, '\\begin{equation}')
+        str.gsub!(/\\end{equation}\s*\$\$/, '\\end{equation}')
 
-        @match = !!line.gsub!(/\\\*/, '*')
-        @match = !!line.gsub!(/\\\|/, '|')
-        @match = !!line.gsub!(/\\_/, '_')
+        str.gsub!(/\\\*/, '*')
+        str.gsub!(/\\\|/, '|')
+        str.gsub!(/\\_/, '_')
 
-        line
+        if !@match
+          if str != line
+            @match = true
+          end
+        end
+
+        str
       end
     end
   end

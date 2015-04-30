@@ -21,4 +21,11 @@ Include figure{% comment %} FOR-LATEX (\autoref{fig:xor}) {% endcomment %}.
 
 {% gist 1c74b8336494cb0e9c6d xor-5d.py %}
 
+## Post Link
+
+{% post_link 2015-04-29-foo %} 
+
+## References
+
+{% bibliography --cited %}
 

@@ -24,4 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "octopress-gist"
   spec.add_development_dependency "octopress-asset-pipeline"
   spec.add_development_dependency "octopress-ink"
+  spec.add_development_dependency "jekyll-scholar"
 end
