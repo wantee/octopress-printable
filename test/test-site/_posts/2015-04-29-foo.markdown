@@ -1,0 +1,24 @@
+---
+layout: default
+title: "Foo"
+---
+
+## Math
+$$\begin{equation}\label{eq:ellipse}
+Ax^2 + Bxy + Cy^2 + Dx + Ey + F = 0
+\end{equation}$$
+
+Refering equation \eqref{eq:ellipse},  $\forall n, x\_i^n = x\_i$.
+
+## Image
+
+Include figure{% comment %} FOR-LATEX (\autoref{fig:xor}) {% endcomment %}.
+
+{% img center /assets/images/xor.png "fig:xor" title:"Figure Example" %}
+
+
+## Gist
+
+{% gist 1c74b8336494cb0e9c6d xor-5d.py %}
+
+

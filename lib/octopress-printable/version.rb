@@ -1,3 +1,5 @@
-module OctopressPrintable
-  VERSION = "0.0.1"
+module Octopress
+  module Printable
+    VERSION = "0.0.1"
+  end
 end

@@ -1,0 +1,12 @@
+permalink: /:year/:month/:day/:title/
+markdown: redcarpet
+redcarpet:
+  smart: false
+exclude:
+  - Gemfile
+
+gems:
+  - octopress-printable
+  - octopress-image-tag
+  - octopress-gist
+  - octopress-ink

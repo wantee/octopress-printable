@@ -5,7 +5,7 @@ require 'octopress-printable/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "octopress-printable"
-  spec.version       = OctopressPrintable::VERSION
+  spec.version       = Octopress::Printable::VERSION
   spec.authors       = ["Wang Jian"]
   spec.email         = ["wantee.wang@gmail.com"]
   spec.description   = %q{Printable version for post generator.}
@@ -20,6 +20,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "clash"
-  
-  spec.add_runtime_dependency "octopress-ink", "~> 1.0"
+  spec.add_development_dependency "octopress-image-tag"
+  spec.add_development_dependency "octopress-gist"
+  spec.add_development_dependency "octopress-asset-pipeline"
+  spec.add_development_dependency "octopress-ink"
 end
