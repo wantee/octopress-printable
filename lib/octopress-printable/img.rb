@@ -47,7 +47,13 @@ module Octopress
         image['alt'] ||= title
 
         image
-       end
+      end
+
+      def header
+        lines = []
+        lines << '\\usepackage{graphicx}'
+        lines << '\\usepackage[all]{hypcap}'
+      end
     end
   end
 end

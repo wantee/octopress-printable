@@ -50,6 +50,19 @@ module Octopress
         File.delete(@tgt_bib)
       end
 
+      def header
+        lines = []
+        lines << '\\usepackage[sort&compress, numbers]{natbib}'
+      end
+
+      def before_xelatex(step, texfile)
+        cmds = []
+        if step == 2
+      	  cmds << "bibtex #{texfile.sub(/\.tex$/, "")} >/dev/null"
+        end
+        cmds
+      end
+
     end
   end
 end

@@ -13,7 +13,23 @@ module Octopress
       end
       
       def header()
-        ""
+        []
+      end
+
+      def pandoc_args
+        []
+      end
+
+      def xelatex_args(step)
+        []
+      end
+
+      def before_xelatex(step, texfile)
+        []
+      end
+
+      def last_xelatex(texfile)
+        []
       end
     end
   end

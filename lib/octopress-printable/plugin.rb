@@ -40,6 +40,8 @@ module Octopress
           if !File.exists?(pdf) || File.stat(post).mtime > File.stat(pdf).mtime
             puts "Converting #{post} to #{pdf}"
             gen_pdf(post, pdf, source_dir, posts_dir, blog_url, bib_dir, bib)
+            site.static_files << Jekyll::StaticFile.new(site, site.source, 
+                    printables_dir, File.basename(pdf))
           end
         end
       end
@@ -61,6 +63,8 @@ bibliography:        "references.bib"
 dump_tex_file:       false
 dump_markdown_file:  false
 dump_bib_file:       false
+dump_cmds:           false
+keep_tmp_files:      false
 
 CONFIG
       end
@@ -123,54 +127,107 @@ CONFIG
           end
         end 
       
+        cts = []
+        for converter in converters
+          if converter.match
+            cts << converter
+          end
+        end
+        converters = cts
+
         texfile = pdffile.sub(/.pdf$/, '.tex')
         base = pdffile.sub(/.pdf$/, '')
         pkgfile = "#{pdffile}.header.tex"
 
         File.open(pkgfile, "w") { |f|
-          if img.match
-            f.puts '\\usepackage{graphicx}'
-            f.puts '\\usepackage[all]{hypcap}'
-          end
-
-          if gist.match
-            f.puts '\\usepackage{minted}'
-          end
-      
-          if bib.match
-            f.puts '\\usepackage[sort&compress, numbers]{natbib}'
+          for converter in converters
+            converter.header.each do |h|
+              f.puts h
+            end
           end
         }
 
-        system "pandoc -s -N --include-in-header=#{pkgfile} #{tmpfile} -o #{texfile} "
-      	system "xelatex -output-directory=#{pdfdir} -no-pdf --interaction=nonstopmode #{base} >/dev/null"
-        if bib.match
-      	  system "bibtex #{base} >/dev/null"
+        cmds = []
+        args = []
+        for converter in converters
+          args += converter.pandoc_args
         end
-      	system "xelatex -output-directory=#{pdfdir} -no-pdf --interaction=nonstopmode #{base} >/dev/null"
-      	system "xelatex -output-directory=#{pdfdir} --interaction=nonstopmode #{base} >/dev/null"
+
+        cmds << "pandoc -s -N #{args.join(" ")} --include-in-header=#{pkgfile} #{tmpfile} -o #{texfile} " 
+
+        (1..2).each do |step|
+          args = []
+          extra_cmds = []
+          for converter in converters
+            extra_cmds += converter.before_xelatex(step, texfile)
+          end
+          for cmd in extra_cmds
+            cmds << cmd
+          end
+
+          for converter in converters
+            args += converter.xelatex_args(step)
+          end
+      	  cmds << "xelatex #{args.join(" ")} -output-directory=#{pdfdir} -no-pdf --interaction=nonstopmode #{base} >/dev/null"
+        end
+
+        extra_cmds = []
+        for converter in converters
+          extra_cmds += converter.before_xelatex(3, texfile)
+        end
+        for cmd in extra_cmds
+          cmds << cmd
+        end
+      	cmds << "xelatex #{args.join(" ")} -output-directory=#{pdfdir} --interaction=nonstopmode #{base} >/dev/null"
       
-      	FileUtils.rm_f("#{base}.aux")
-      	FileUtils.rm_f("#{base}.log")
-      	FileUtils.rm_f("#{base}.lot")
-      	FileUtils.rm_f("#{base}.out")
-      	FileUtils.rm_f("#{base}.toc")
-      	FileUtils.rm_f("#{base}.blg")
-      	FileUtils.rm_f("#{base}.bbl")
-      	FileUtils.rm_f("#{base}.lof")
-      	FileUtils.rm_f("#{base}.xdv")
-      	FileUtils.rm_f("#{base}.hst")
-      	FileUtils.rm_f("#{base}.ver")
-      	FileUtils.rm_f("#{base}.synctex.gz")
-        FileUtils.rm_f("#{File.basename(base)}.pyg")
+        extra_cmds = []
+        for converter in converters
+          extra_cmds += converter.last_xelatex(texfile)
+        end
+        for cmd in extra_cmds
+          cmds << cmd
+        end
+
+        for cmd in cmds
+          system cmd
+        end
+
+        if @conf['dump_cmds']
+          File.open("#{base}.sh", 'w') { |f|
+            f.write(cmds.join("\n"))
+          }
+          FileUtils.chmod(0755, "#{base}.sh")
+        end
+
+        if File.exists?("#{File.basename(base)}.pyg")
+          FileUtils.mv("#{File.basename(base)}.pyg", pdfdir)
+        end
+
+        if !@conf['keep_tmp_files']
+      	  FileUtils.rm_f("#{base}.aux")
+      	  FileUtils.rm_f("#{base}.log")
+      	  FileUtils.rm_f("#{base}.lot")
+      	  FileUtils.rm_f("#{base}.out")
+      	  FileUtils.rm_f("#{base}.toc")
+      	  FileUtils.rm_f("#{base}.blg")
+      	  FileUtils.rm_f("#{base}.bbl")
+      	  FileUtils.rm_f("#{base}.lof")
+      	  FileUtils.rm_f("#{base}.xdv")
+      	  FileUtils.rm_f("#{base}.hst")
+      	  FileUtils.rm_f("#{base}.ver")
+      	  FileUtils.rm_f("#{base}.synctex.gz")
+          FileUtils.rm_f("#{base}.pyg")
+        end
       
         if !@conf['dump_tex_file']
           FileUtils.rm_f("#{texfile}")
           FileUtils.rm_f("#{pkgfile}")
         end
+
         if !@conf['dump_markdown_file']
           FileUtils.rm_f("#{tmpfile}")
         end
+
         if !@conf['dump_bib_file']
           bib.cleanup
         end

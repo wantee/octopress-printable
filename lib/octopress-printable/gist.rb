@@ -26,6 +26,16 @@ module Octopress
 
         str
       end
+
+      def header
+        lines = []
+        lines << '\\usepackage{minted}'
+      end
+
+      def xelatex_args(step)
+        args = []
+        args << "-shell-escape"
+      end
     end
   end
 end
