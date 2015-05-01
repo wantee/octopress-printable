@@ -5,9 +5,6 @@
     remove_printable:
       - rm -rf assets/printables
       - echo "Printables removed"
-    copy_printable:
-      - cp -r assets/printables _site/assets/
-      - echo "Printables copied"
 -
   title: "Full Test Build"
   dir: test-site
@@ -17,24 +14,22 @@
     - remove_printable
     - reset_site
   build: true
-  before_compare:
-    - copy_printable
   compare: 
     - _expected/full/index.html _site/index.html
     - _expected/full/2015/04/29/foo/index.html _site/2015/04/29/foo/index.html
     - _expected/full/stylesheets/all-.css _site/stylesheets/all-.css
     - _expected/full/assets/images/xor.png _site/assets/images/xor.png
     - _expected/full/images/octopress-printable/printer.png _site/images/octopress-printable/printer.png
-    - _expected/full/assets/printables/2015-04-29-foo.pdf.markdown _site/assets/printables/2015-04-29-foo.pdf.markdown
-    - _expected/full/assets/printables/2015-04-29-foo.pdf.header.tex _site/assets/printables/2015-04-29-foo.pdf.header.tex
-    - _expected/full/assets/printables/2015-04-29-foo.tex _site/assets/printables/2015-04-29-foo.tex
-    - _expected/full/assets/printables/2015-04-29-foo.sh _site/assets/printables/2015-04-29-foo.sh
-    - _expected/full/assets/printables/2015-04-29-foo.aux _site/assets/printables/2015-04-29-foo.aux
-    - _expected/full/assets/printables/2015-04-29-foo.bbl _site/assets/printables/2015-04-29-foo.bbl
-    - _expected/full/assets/printables/2015-04-29-foo.blg _site/assets/printables/2015-04-29-foo.blg
-    - _expected/full/assets/printables/2015-04-29-foo.out _site/assets/printables/2015-04-29-foo.out
-    - _expected/full/assets/printables/2015-04-29-foo.pyg _site/assets/printables/2015-04-29-foo.pyg
-    - _expected/full/assets/printables/references.bib _site/assets/printables/references.bib
+    - _expected/full/assets/printables/2015-04-29-foo.pdf.markdown assets/printables/2015-04-29-foo.pdf.markdown
+    - _expected/full/assets/printables/2015-04-29-foo.pdf.header.tex assets/printables/2015-04-29-foo.pdf.header.tex
+    - _expected/full/assets/printables/2015-04-29-foo.tex assets/printables/2015-04-29-foo.tex
+    - _expected/full/assets/printables/2015-04-29-foo.sh assets/printables/2015-04-29-foo.sh
+    - _expected/full/assets/printables/2015-04-29-foo.aux assets/printables/2015-04-29-foo.aux
+    - _expected/full/assets/printables/2015-04-29-foo.bbl assets/printables/2015-04-29-foo.bbl
+    - _expected/full/assets/printables/2015-04-29-foo.blg assets/printables/2015-04-29-foo.blg
+    - _expected/full/assets/printables/2015-04-29-foo.out assets/printables/2015-04-29-foo.out
+    - _expected/full/assets/printables/2015-04-29-foo.pyg assets/printables/2015-04-29-foo.pyg
+    - _expected/full/assets/printables/references.bib assets/printables/references.bib
 
 -
   title: "Dry-run Test Build"
@@ -46,15 +41,13 @@
     - remove_printable
     - reset_site
   build: true
-  before_compare:
-    - copy_printable
   compare: 
     - _expected/dry_run/index.html _site/index.html
     - _expected/dry_run/2015/04/29/foo/index.html _site/2015/04/29/foo/index.html
     - _expected/dry_run/stylesheets/all-.css _site/stylesheets/all-.css
     - _expected/dry_run/assets/images/xor.png _site/assets/images/xor.png
     - _expected/dry_run/images/octopress-printable/printer.png _site/images/octopress-printable/printer.png
-    - _expected/dry_run/assets/printables/2015-04-29-foo.pdf.markdown _site/assets/printables/2015-04-29-foo.pdf.markdown
-    - _expected/dry_run/assets/printables/2015-04-29-foo.pdf.header.tex _site/assets/printables/2015-04-29-foo.pdf.header.tex
-    - _expected/dry_run/assets/printables/2015-04-29-foo.sh _site/assets/printables/2015-04-29-foo.sh
-    - _expected/dry_run/assets/printables/references.bib _site/assets/printables/references.bib
+    - _expected/dry_run/assets/printables/2015-04-29-foo.pdf.markdown assets/printables/2015-04-29-foo.pdf.markdown
+    - _expected/dry_run/assets/printables/2015-04-29-foo.pdf.header.tex assets/printables/2015-04-29-foo.pdf.header.tex
+    - _expected/dry_run/assets/printables/2015-04-29-foo.sh assets/printables/2015-04-29-foo.sh
+    - _expected/dry_run/assets/printables/references.bib assets/printables/references.bib
