@@ -1,7 +1,7 @@
 -
   tasks:
     reset_site: 
-      - #rm -rf _site
+      - rm -rf _site
     remove_printable:
       - rm -rf assets/printables
       - echo "Printables removed"
@@ -13,10 +13,10 @@
   dir: test-site
   config: 
     octopress-printable: _octopress-printable_full.yml
-  before: remove_printable
-  build: true
-  after: 
+  before: 
+    - remove_printable
     - reset_site
+  build: true
   before_compare:
     - copy_printable
   compare: 
@@ -34,16 +34,18 @@
     - _expected/full/assets/printables/2015-04-29-foo.blg _site/assets/printables/2015-04-29-foo.blg
     - _expected/full/assets/printables/2015-04-29-foo.out _site/assets/printables/2015-04-29-foo.out
     - _expected/full/assets/printables/2015-04-29-foo.pyg _site/assets/printables/2015-04-29-foo.pyg
+    - _expected/full/assets/printables/references.bib _site/assets/printables/references.bib
 
 -
   title: "Dry-run Test Build"
   dir: test-site
   config:
+    jekyll: _config_dry_run.yml
     octopress-printable: _octopress-printable_dry_run.yml
-  before: remove_printable
-  build: true
-  after: 
+  before: 
+    - remove_printable
     - reset_site
+  build: true
   before_compare:
     - copy_printable
   compare: 
@@ -55,3 +57,4 @@
     - _expected/dry_run/assets/printables/2015-04-29-foo.pdf.markdown _site/assets/printables/2015-04-29-foo.pdf.markdown
     - _expected/dry_run/assets/printables/2015-04-29-foo.pdf.header.tex _site/assets/printables/2015-04-29-foo.pdf.header.tex
     - _expected/dry_run/assets/printables/2015-04-29-foo.sh _site/assets/printables/2015-04-29-foo.sh
+    - _expected/dry_run/assets/printables/references.bib _site/assets/printables/references.bib
