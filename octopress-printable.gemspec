@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["wantee.wang@gmail.com"]
   spec.description   = %q{Printable version for post generator.}
   spec.summary       = %q{Printable version for post generator.}
-  spec.homepage      = "https://github.com/wantee/jekyll-printable"
+  spec.homepage      = "https://github.com/wantee/octopress-printable"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").grep(%r{^(bin/|lib/|assets/|changelog|readme|license)}i)
@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "clash", "~> 2.2.2"
+#  spec.add_development_dependency "clash", "2.2.2"
 
   spec.add_development_dependency "octopress-image-tag", "~>1.1.0"
   spec.add_development_dependency "octopress-ink"
