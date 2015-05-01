@@ -23,6 +23,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "octopress-image-tag", "~>1.1.0"
   spec.add_development_dependency "octopress-gist", "~>1.3.5"
-  spec.add_development_dependency "octopress-ink", "~>1.1.0"
+  spec.add_development_dependency "octopress-ink"
   spec.add_development_dependency "jekyll-scholar", "~>4.3.5"
 end
