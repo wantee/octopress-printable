@@ -2,6 +2,10 @@
 
 An octopress ink plugin generating printable version of markdown posts.
 
+[![Build Status](https://travis-ci.org/wantee/octopress-printable.svg)](https://travis-ci.org/wantee/octopress-printable)
+[![Gem Version](https://badge.fury.io/rb/octopress-printable.svg)](http://badge.fury.io/rb/octopress-printable)
+[![License](http://img.shields.io/:license-mit-blue.svg)](https://github.com/wantee/octopress-printable/blob/master/LICENSE.txt)
+
 ## Prerequisites
 * [Pandoc](pandoc.org/), >= 1.13.2
 * TeX Live 2013
