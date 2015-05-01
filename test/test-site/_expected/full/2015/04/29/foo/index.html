@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"> 
+<link href='/stylesheets/all-.css' media='all' rel='stylesheet' type='text/css'>
+<span class="printable">
+
+
+  
+
+
+
+  <a href="/assets/printables/2015-04-29-foo.pdf"> <img src="/images/octopress-printable/printer.png" alt="printable version"> </a>
+
+
+</span>
+</head>
+<body>
+<div class='site'><h2>Math</h2>
+
+<p>$$\begin{equation}\label{eq:ellipse}
+Ax^2 + Bxy + Cy^2 + Dx + Ey + F = 0
+\end{equation}$$</p>
+
+<p>Refering equation \eqref{eq:ellipse},  $\forall n, x_i^n = x_i$.</p>
+
+<h2>Image</h2>
+
+<p>See following figure.</p>
+
+<p><img class="center" src="/assets/images/xor.png" alt="fig:xor" title="Figure Example"></p>
+
+<h2>Gist</h2>
+
+<figure class='code-highlight-figure'><figcaption class='code-highlight-caption'><span class='code-highlight-caption-title'>xor-5d.py</span><a class='code-highlight-caption-link' href='https://gist.github.com/1c74b8336494cb0e9c6d'>link</a></figcaption><div class='code-highlight'><pre class='code-highlight-pre'><div data-line='1' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kn">import</span> <span class="nn">sys</span>
+</div></div><div data-line='2' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+</div></div><div data-line='3' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+</div></div><div data-line='4' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="c">#from sklearn.linear_model import SGDClassifier</span>
+</div></div><div data-line='5' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Perceptron</span>
+</div></div><div data-line='6' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='7' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">X</span> <span class="o">=</span> <span class="p">[]</span>
+</div></div><div data-line='8' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">y</span> <span class="o">=</span> <span class="p">[]</span>
+</div></div><div data-line='9' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+</div></div><div data-line='10' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+</div></div><div data-line='11' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="n">X</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
+</div></div><div data-line='12' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span> <span class="o">^</span> <span class="n">j</span><span class="p">)</span>
+</div></div><div data-line='13' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='14' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span><span class="p">:</span>
+</div></div><div data-line='15' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">x</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+</div></div><div data-line='16' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='17' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</div></div><div data-line='18' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</div></div><div data-line='19' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='20' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="c">#clf = SGDClassifier(loss=&#39;log&#39;, n_iter=10, shuffle=False).fit(X, y)</span>
+</div></div><div data-line='21' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">clf</span> <span class="o">=</span> <span class="n">Perceptron</span><span class="p">(</span><span class="n">n_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</div></div><div data-line='22' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='23' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="k">if</span> <span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="p">:</span>
+</div></div><div data-line='24' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="k">print</span> <span class="s">&#39;Failed to fit the data.&#39;</span>
+</div></div><div data-line='25' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</div></div><div data-line='26' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='27' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%f</span><span class="s">x</span><span class="si">%+f</span><span class="s">y</span><span class="si">%+f</span><span class="s">x^2</span><span class="si">%+f</span><span class="s">y^2</span><span class="si">%+f</span><span class="s">xy</span><span class="si">%+f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">clf</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+</div></div><div data-line='28' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">clf</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">clf</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">clf</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+</div></div><div data-line='29' class='code-highlight-row numbered'><div class='code-highlight-line'>            <span class="n">clf</span><span class="o">.</span><span class="n">intercept_</span><span class="p">))</span>
+</div></div><div data-line='30' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='31' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)):</span>
+</div></div><div data-line='32' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="k">if</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+</div></div><div data-line='33' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s">u&#39;x&#39;</span><span class="p">)</span>
+</div></div><div data-line='34' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="k">elif</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</div></div><div data-line='35' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s">u&#39;o&#39;</span><span class="p">,</span> <span class="n">facecolors</span><span class="o">=</span><span class="s">&#39;none&#39;</span><span class="p">)</span>
+</div></div><div data-line='36' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='37' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">XX</span><span class="p">,</span> <span class="n">YY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">200j</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">200j</span><span class="p">]</span>
+</div></div><div data-line='38' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">XXX</span> <span class="o">=</span> <span class="p">[]</span>
+</div></div><div data-line='39' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="k">for</span> <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">XX</span><span class="p">,</span> <span class="n">YY</span><span class="p">):</span>
+</div></div><div data-line='40' class='code-highlight-row numbered'><div class='code-highlight-line'>    <span class="k">for</span> <span class="n">x_</span><span class="p">,</span> <span class="n">y_</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">):</span>
+</div></div><div data-line='41' class='code-highlight-row numbered'><div class='code-highlight-line'>        <span class="n">XXX</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">,</span> <span class="n">x_</span><span class="o">*</span><span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="o">*</span><span class="n">y_</span><span class="p">,</span> <span class="n">x_</span><span class="o">*</span><span class="n">y_</span><span class="p">])</span>
+</div></div><div data-line='42' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">Z</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">decision_function</span><span class="p">(</span><span class="n">XXX</span><span class="p">)</span>
+</div></div><div data-line='43' class='code-highlight-row numbered'><div class='code-highlight-line'> </div></div><div data-line='44' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">Z</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">XX</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</div></div><div data-line='45' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">XX</span><span class="p">,</span> <span class="n">YY</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</div></div><div data-line='46' class='code-highlight-row numbered'><div class='code-highlight-line'><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div></div></pre></div></figure>
+
+<h2>Post Link</h2>
+
+<p><a href="/2015/04/29/foo/">Foo</a> </p>
+
+<p>Awesome paper<a href="#mikolov2013efficient">(Mikolov, Chen, Corrado, &amp; Dean, 2013)</a>.</p>
+
+<h2>References</h2>
+
+<ol class="bibliography"><li><span id="mikolov2013efficient">Mikolov, T., Chen, K., Corrado, G., &amp; Dean, J. (2013). <a href="http://arxiv.org/pdf/1301.3781.pdf">Efficient estimation of word representations in vector space</a>. <i>ArXiv Preprint ArXiv:1301.3781</i>.</span></li></ol>
+</div>
+</body>
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$']],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  messageStyle: "none",
+  "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+</html>

@@ -40,8 +40,10 @@ module Octopress
           if !File.exists?(pdf) || File.stat(post).mtime > File.stat(pdf).mtime
             puts "Converting #{post} to #{pdf}"
             gen_pdf(post, pdf, source_dir, posts_dir, blog_url, bib_dir, bib)
-            site.static_files << Jekyll::StaticFile.new(site, site.source, 
-                    printables_dir, File.basename(pdf))
+            if File.exists?(pdf)
+              site.static_files << Jekyll::StaticFile.new(site,
+                      site.source, printables_dir, File.basename(pdf))
+            end
           end
         end
       end
@@ -56,10 +58,14 @@ module Octopress
 posts_dir:           "_posts"
 printables_dir:      "assets/printables"
 source_dir:          "."
-blog_url:            "http://example.com"
+blog_url:            "http://example.com"  # used in pdf post_links
 bibliography_dir:    "_bibliography"
 bibliography:        "references.bib"
 
+# only convert markdowns, without running pandoc and xelatex
+dry_run      :       false
+
+# debug files
 dump_tex_file:       false
 dump_markdown_file:  false
 dump_bib_file:       false
@@ -188,8 +194,10 @@ CONFIG
           cmds << cmd
         end
 
-        for cmd in cmds
-          system cmd
+        if ! @conf['dry_run']
+          for cmd in cmds
+            system cmd
+          end
         end
 
         if @conf['dump_cmds']
