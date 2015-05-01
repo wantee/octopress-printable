@@ -47,7 +47,7 @@ module Octopress
       end
 
       def cleanup()
-        File.delete(@tgt_bib)
+        FileUtils.rm_f(@tgt_bib)
       end
 
       def header

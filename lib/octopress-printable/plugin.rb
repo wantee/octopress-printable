@@ -75,7 +75,8 @@ keep_tmp_files:      false
 CONFIG
       end
 
-      def gen_pdf(mdfile, pdffile, source_dir, posts_dir, blog_url, bib_dir, bib)
+      def gen_pdf(mdfile, pdffile, source_dir, posts_dir, blog_url,
+              bib_dir, bib_file)
         pdfdir = File.dirname(pdffile)
         if ! File.exists?(pdfdir)
           FileUtils.mkdir_p pdfdir
@@ -86,8 +87,8 @@ CONFIG
         converters << math
         img = ImgConverter.new(source_dir)
         converters << img
-        bib = BibConverter.new("#{source_dir}/#{bib_dir}/#{bib}",
-                "#{pdfdir}/#{bib}")
+        bib = BibConverter.new("#{source_dir}/#{bib_dir}/#{bib_file}",
+                "#{pdfdir}/#{bib_file}")
         converters << bib
         gist = GistConverter.new
         converters << gist
@@ -236,7 +237,7 @@ CONFIG
           FileUtils.rm_f("#{tmpfile}")
         end
 
-        if !@conf['dump_bib_file']
+        if !@conf['dump_bib_file'] && bib.match
           bib.cleanup
         end
       end
