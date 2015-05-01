@@ -4,4 +4,3 @@ rvm:
   - 1.9.3
 script: 
   - bundle exec clash 2
-sudo: required
