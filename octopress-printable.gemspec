@@ -19,10 +19,10 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "clash"
-  spec.add_development_dependency "octopress-image-tag"
-  spec.add_development_dependency "octopress-gist"
-  spec.add_development_dependency "octopress-asset-pipeline"
-  spec.add_development_dependency "octopress-ink"
-  spec.add_development_dependency "jekyll-scholar"
+  spec.add_development_dependency "clash", "~> 2.2.2"
+
+  spec.add_development_dependency "octopress-image-tag", "~>1.1.0"
+  spec.add_development_dependency "octopress-gist", "~>1.3.5"
+  spec.add_development_dependency "octopress-ink", "~>1.1.0"
+  spec.add_development_dependency "jekyll-scholar", "~>1.1.0"
 end
