@@ -33,9 +33,10 @@ module Octopress
 
         site.posts.each do |p|
           post = p.path
-          pdf = post.sub(/#{posts_dir}\//, "#{printables_dir}/")
-          pdf = pdf.sub(/\.markdown$/, ".pdf")
-          pdf = pdf.sub(/\.md$/, ".pdf")
+          pdf = p.url.sub(/^\//, "")
+          pdf = pdf.sub(/\/$/, "")
+          pdf = pdf.gsub(/\//, "-")
+          pdf = "#{printables_dir}/#{pdf}.pdf"
 
           if !File.exists?(pdf) || File.stat(post).mtime > File.stat(pdf).mtime
             puts "Converting #{post} to #{pdf}"
