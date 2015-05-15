@@ -1,5 +1,6 @@
-require 'octopress-printable/version'
 require 'octopress-ink'
+
+require 'octopress-printable/version'
 
 module Octopress
   module Printable

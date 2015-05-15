@@ -19,7 +19,6 @@
     - _expected/full/2015/04/29/foo/index.html _site/2015/04/29/foo/index.html
     - _expected/full/stylesheets/all-.css _site/stylesheets/all-.css
     - _expected/full/assets/images/xor.png _site/assets/images/xor.png
-    - _expected/full/images/octopress-printable/printer.png _site/images/octopress-printable/printer.png
     - _expected/full/assets/printables/2015-04-29-foo.pdf.markdown assets/printables/2015-04-29-foo.pdf.markdown
     - _expected/full/assets/printables/2015-04-29-foo.pdf.header.tex assets/printables/2015-04-29-foo.pdf.header.tex
     - _expected/full/assets/printables/2015-04-29-foo.tex assets/printables/2015-04-29-foo.tex
@@ -46,7 +45,6 @@
     - _expected/dry_run/2015/04/29/foo/index.html _site/2015/04/29/foo/index.html
     - _expected/dry_run/stylesheets/all-.css _site/stylesheets/all-.css
     - _expected/dry_run/assets/images/xor.png _site/assets/images/xor.png
-    - _expected/dry_run/images/octopress-printable/printer.png _site/images/octopress-printable/printer.png
     - _expected/dry_run/assets/printables/2015-04-29-foo.pdf.markdown assets/printables/2015-04-29-foo.pdf.markdown
     - _expected/dry_run/assets/printables/2015-04-29-foo.pdf.header.tex assets/printables/2015-04-29-foo.pdf.header.tex
     - _expected/dry_run/assets/printables/2015-04-29-foo.sh assets/printables/2015-04-29-foo.sh

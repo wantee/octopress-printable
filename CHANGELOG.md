@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.0.4 - 2015-05-15
+- Using font-awesome
+
 ## 0.0.3 - 2015-05-13
 - Support convert from draft
 

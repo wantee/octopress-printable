@@ -1,10 +1,10 @@
 require "bundler/gem_tasks"
-require_relative "lib/octopress-printable"
+require_relative 'lib/octopress-printable/config.rb'
 
 config_yml = 'assets/config.yml'
 readme = 'README.md'
 
-file config_yml => 'lib/octopress-printable/plugin.rb' do
+file config_yml => 'lib/octopress-printable/config.rb' do
   File.open(config_yml, 'w') { |f|
     f.write(Octopress::Printable::Plugin.default_config) 
   }
