@@ -9,5 +9,6 @@ gems:
   - jekyll/scholar
   - octopress-image-tag
   - octopress-ink
+  - octopress-font-awesome
   - octopress-printable
 
