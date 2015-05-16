@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.0 - 2015-05-16
+- Using octopress-font-awesome
+
 ## 0.0.4 - 2015-05-15
 - Using font-awesome
 
