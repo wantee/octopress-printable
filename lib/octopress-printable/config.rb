@@ -1,6 +1,6 @@
 module Octopress
   module Printable
-    class Plugin 
+    class Config 
 
       def self.default_config
 <<-CONFIG

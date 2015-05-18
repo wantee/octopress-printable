@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.1 - 2015-05-18
+- Add online version link in pdf
+
 ## 0.1.0 - 2015-05-16
 - Using octopress-font-awesome
 

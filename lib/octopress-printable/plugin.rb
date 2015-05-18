@@ -1,5 +1,6 @@
 module Octopress
   module Printable
+    autoload :Config,              'octopress-printable/config'
     autoload :Converter,           'octopress-printable/converter'
     autoload :MathConverter,       'octopress-printable/math'
     autoload :ImgConverter,        'octopress-printable/img'
@@ -40,7 +41,8 @@ module Octopress
 
           if !File.exists?(pdf) || File.stat(post).mtime > File.stat(pdf).mtime
             puts "Converting #{post} to #{pdf}"
-            gen_pdf(post, pdf, source_dir, posts_dir, blog_url, bib_dir, bib)
+            gen_pdf(post, pdf, source_dir, posts_dir, blog_url,
+                    bib_dir, bib, p.url)
             if File.exists?(pdf)
               site.static_files << Jekyll::StaticFile.new(site,
                       site.source, printables_dir, File.basename(pdf))
@@ -51,33 +53,11 @@ module Octopress
   
       def inject_configs
         @conf = self.config
-        @conf = Jekyll::Utils.deep_merge_hashes(YAML.load(Plugin.default_config), @conf)
-      end
-
-      def self.default_config
-<<-CONFIG
-posts_dir:           "_posts"
-printables_dir:      "assets/printables"
-source_dir:          "."
-blog_url:            "http://example.com"  # used in pdf post_links
-bibliography_dir:    "_bibliography"
-bibliography:        "references.bib"
-
-# only convert markdowns, without running pandoc and xelatex
-dry_run      :       false
-
-# debug files
-dump_tex_file:       false
-dump_markdown_file:  false
-dump_bib_file:       false
-dump_cmds:           false
-keep_tmp_files:      false
-
-CONFIG
+        @conf = Jekyll::Utils.deep_merge_hashes(YAML.load(Config.default_config), @conf)
       end
 
       def gen_pdf(mdfile, pdffile, source_dir, posts_dir, blog_url,
-              bib_dir, bib_file)
+              bib_dir, bib_file, post_url)
         pdfdir = File.dirname(pdffile)
         if ! File.exists?(pdfdir)
           FileUtils.mkdir_p pdfdir
@@ -133,6 +113,8 @@ CONFIG
               post.puts line
             end  
           end
+
+          post.puts "\\renewcommand{\\thefootnote}{}\\footnotetext{\\url{#{blog_url}/#{post_url}}}"
         end 
       
         cts = []

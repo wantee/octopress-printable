@@ -6,7 +6,7 @@ readme = 'README.md'
 
 file config_yml => 'lib/octopress-printable/config.rb' do
   File.open(config_yml, 'w') { |f|
-    f.write(Octopress::Printable::Plugin.default_config) 
+    f.write(Octopress::Printable::Config.default_config) 
   }
 end
 
@@ -19,7 +19,7 @@ file readme => config_yml do
       if /```yaml config/ =~ line
         inyaml = true
         f.write(line)
-        f.write(Octopress::Printable::Plugin.default_config) 
+        f.write(Octopress::Printable::Config.default_config) 
         next
       end
       if inyaml && /```/ =~ line

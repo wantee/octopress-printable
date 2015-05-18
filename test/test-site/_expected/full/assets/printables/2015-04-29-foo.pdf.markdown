@@ -31,3 +31,4 @@ Awesome paper\cite{mikolov2013efficient}.
 
 \bibliographystyle{unsrt}\bibliography{assets/printables/references}
 
+\renewcommand{\thefootnote}{}\footnotetext{\url{http://localhost:4000//2015/04/29/foo/}}
