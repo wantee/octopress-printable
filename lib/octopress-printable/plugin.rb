@@ -114,7 +114,8 @@ module Octopress
             end  
           end
 
-          post.puts "\\renewcommand{\\thefootnote}{}\\footnotetext{\\url{#{blog_url}/#{post_url}}}"
+          url = "#{blog_url}/#{post_url}".gsub(/([^:])\/\/+/, '\1/')
+          post.puts "\\renewcommand{\\thefootnote}{}\\footnotetext{Online version at \\url{#{url}}}"
         end 
       
         cts = []
