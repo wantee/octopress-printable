@@ -34,6 +34,12 @@ module Octopress
 
         site.posts.each do |p|
           post = p.path
+          head = YAML.load_file(post)
+          
+          if head['noprintable']
+            next
+          end
+
           pdf = p.url.sub(/^\//, "")
           pdf = pdf.sub(/\/$/, "")
           pdf = pdf.gsub(/\//, "-")

@@ -1,3 +1,18 @@
+{% if post %}
+  {% if post.noprintable %}
+    {% assign display = false %}
+  {% else %}
+    {% assign display = true %}
+  {% endif %}
+{% else %}
+  {% if page.noprintable %}
+    {% assign display = false %}
+  {% else %}
+    {% assign display = true %}
+  {% endif %}
+{% endif %}
+
+{% if display %}
 <span class="printable">
 
 {% if post %}
@@ -11,3 +26,4 @@
 {% endif %}
 
 </span>
+{% endif %}

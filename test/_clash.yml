@@ -28,6 +28,9 @@
     - _expected/full/assets/printables/2015-04-29-foo.out assets/printables/2015-04-29-foo.out
     - _expected/full/assets/printables/2015-04-29-foo.pyg assets/printables/2015-04-29-foo.pyg
     - _expected/full/assets/printables/references.bib assets/printables/references.bib
+    - _expected/full/2015/05/30/bar/index.html _site/2015/05/30/bar/index.html
+  enforce_missing:
+    - assets/printables/2015-05-30-bar.pdf.markdown
 
 -
   title: "Dry-run Test Build"
@@ -47,3 +50,6 @@
     - _expected/dry_run/assets/printables/2015-04-29-foo.pdf.header.tex assets/printables/2015-04-29-foo.pdf.header.tex
     - _expected/dry_run/assets/printables/2015-04-29-foo.sh assets/printables/2015-04-29-foo.sh
     - _expected/dry_run/assets/printables/references.bib assets/printables/references.bib
+    - _expected/dry_run/2015/05/30/bar/index.html _site/2015/05/30/bar/index.html
+  enforce_missing:
+    - assets/printables/2015-05-30-bar.pdf.markdown

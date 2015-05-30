@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.2 - 2015-05-30
+- Add 'noprintable' config to yaml front matter
+
 ## 0.1.1 - 2015-05-18
 - Add online version link in pdf
 
