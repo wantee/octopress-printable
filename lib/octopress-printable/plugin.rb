@@ -8,6 +8,7 @@ module Octopress
     autoload :GistConverter,       'octopress-printable/gist'
     autoload :PostLinkConverter,   'octopress-printable/post_link'
     autoload :LatexConverter,      'octopress-printable/latex'
+    autoload :Tex2imgConverter,    'octopress-printable/tex2img'
 
     class Plugin < Ink::Plugin
 
@@ -74,6 +75,8 @@ module Octopress
         converters << math
         img = ImgConverter.new(source_dir)
         converters << img
+        tex2img = Tex2imgConverter.new(source_dir)
+        converters << tex2img
         bib = BibConverter.new("#{source_dir}/#{bib_dir}/#{bib_file}",
                 "#{pdfdir}/#{bib_file}")
         converters << bib

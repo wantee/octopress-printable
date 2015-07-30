@@ -4,6 +4,7 @@
       - rm -rf _site
     remove_printable:
       - rm -rf assets/printables
+      - rm -rf assets/miscs
       - echo "Printables removed"
 -
   title: "Full Test Build"
@@ -36,7 +37,6 @@
   title: "Dry-run Test Build"
   dir: test-site
   config:
-    jekyll: _config_dry_run.yml
     octopress-printable: _octopress-printable_dry_run.yml
   before: 
     - remove_printable

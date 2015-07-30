@@ -17,6 +17,12 @@ See following figure(\autoref{fig:xor}).
 \begin{figure}[h]\centering\includegraphics[width=\textwidth]{.//assets/images/xor.png}\caption{Figure Example}\label{fig:xor}\end{figure}
 
 
+# Tex2img
+
+See following figure(\autoref{fig:test}).
+
+\begin{figure}[h]\centering\input{./misc/test.tex}\caption{Test tex figure}\label{fig:test}\end{figure}
+
 # Gist
 
 \inputminted[mathescape, linenos, frame=lines, framesep=2mm]{Python}{.gist-cache/cache.7aeefc0de1bb10005514355a5c4a5dfe-1c74b8336494cb0e9c6d-xor-5d.py}

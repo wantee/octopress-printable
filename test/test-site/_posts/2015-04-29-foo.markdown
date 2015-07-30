@@ -17,6 +17,12 @@ See following figure{{ 'fig:xor' | latex:autoref }}.
 {% img center /assets/images/xor.png "fig:xor" title:"Figure Example" %}
 
 
+## Tex2img
+
+See following figure{{ 'fig:test' | latex:autoref }}.
+
+{% tex2img misc/test.tex center /assets/miscs/test.png "fig:test" title:"Test tex figure" %}
+
 ## Gist
 
 {% gist 1c74b8336494cb0e9c6d xor-5d.py %}

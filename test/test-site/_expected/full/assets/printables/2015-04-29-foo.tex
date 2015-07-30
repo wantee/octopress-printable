@@ -49,6 +49,8 @@
 \date{}
 \usepackage{graphicx}
 \usepackage[all]{hypcap}
+\usepackage{tikz}
+\usepackage{standalone}
 \usepackage[sort&compress, numbers]{natbib}
 \usepackage{minted}
 
@@ -68,6 +70,12 @@ Refering equation \eqref{eq:ellipse}, \(\forall n, x_i^n = x_i\).
 See following figure(\autoref{fig:xor}).
 
 \begin{figure}[h]\centering\includegraphics[width=\textwidth]{.//assets/images/xor.png}\caption{Figure Example}\label{fig:xor}\end{figure}
+
+\section{Tex2img}\label{tex2img}
+
+See following figure(\autoref{fig:test}).
+
+\begin{figure}[h]\centering\input{./misc/test.tex}\caption{Test tex figure}\label{fig:test}\end{figure}
 
 \section{Gist}\label{gist}
 

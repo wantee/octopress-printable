@@ -16,7 +16,7 @@ module Octopress
         if /{% img (?<markup>.*) %}/ =~ str
           @match = true
 
-          img = get_img_label(markup)
+          img = ImgConverter.get_img_label(markup)
           str="\\begin{figure}[h]\\centering\\includegraphics[width=\\textwidth]{#{@source_dir}/#{img['src']}}\\caption{#{img['title']}}\\label{#{img['alt']}}\\end{figure}"
         end
  
@@ -24,7 +24,7 @@ module Octopress
       end
 
       # from octopress-image-tag plugin
-      def get_img_label(markup)
+      def self.get_img_label(markup)
         title = markup.scan(TITLE_REGEX).flatten.compact.last
         markup.gsub!(TITLE_REGEX, '')
 

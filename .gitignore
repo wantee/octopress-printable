@@ -23,5 +23,6 @@ _site
 .sass-cache
 _site
 *~
+test/test-site/assets/miscs/
 test/test-site/assets/printables/
 test/test-site/_plugins/

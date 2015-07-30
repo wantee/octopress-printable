@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.3 - 2015-07-29
+- Add 'tex2img' support
+
 ## 0.1.2 - 2015-05-30
 - Add 'noprintable' config to yaml front matter
 

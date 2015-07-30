@@ -4,6 +4,7 @@ redcarpet:
   smart: false
 exclude:
   - Gemfile
+  - misc/
 
 gems:
   - jekyll/scholar
@@ -11,4 +12,5 @@ gems:
   - octopress-ink
   - octopress-font-awesome
   - octopress-printable
+  - octopress-tex2img
 
