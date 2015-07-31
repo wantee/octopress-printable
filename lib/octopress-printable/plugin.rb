@@ -46,7 +46,7 @@ module Octopress
           pdf = pdf.gsub(/\//, "-")
           pdf = "#{printables_dir}/#{pdf}.pdf"
 
-          if !File.exists?(pdf) || File.stat(post).mtime > File.stat(pdf).mtime
+          if !File.exists?(pdf) || timestamp(post, source_dir) > File.stat(pdf).mtime
             puts "Converting #{post} to #{pdf}"
             gen_pdf(post, pdf, source_dir, posts_dir, blog_url,
                     bib_dir, bib, p.url)
@@ -188,17 +188,23 @@ module Octopress
           cmds << cmd
         end
 
+        envs = []
+        for converter in converters
+          envs += converter.envs
+        end
+        File.open("#{base}.sh", 'w') { |f|
+          f.write(envs.join("\n"))
+          f.write("\n")
+          f.write(cmds.join("\n"))
+        }
+        FileUtils.chmod(0755, "#{base}.sh")
+
         if ! @conf['dry_run']
-          for cmd in cmds
-            system cmd
-          end
+          system "#{base}.sh"
         end
 
-        if @conf['dump_cmds']
-          File.open("#{base}.sh", 'w') { |f|
-            f.write(cmds.join("\n"))
-          }
-          FileUtils.chmod(0755, "#{base}.sh")
+        if ! @conf['dump_cmds']
+      	  FileUtils.rm_f("#{base}.sh")
         end
 
         if File.exists?("#{File.basename(base)}.pyg")
@@ -233,6 +239,18 @@ module Octopress
         if !@conf['dump_bib_file'] && bib.match
           bib.cleanup
         end
+      end
+
+      def timestamp(post, source_dir)
+        ts = [ File.stat(post).mtime ]
+        ts << MathConverter.timestamp(post, source_dir)
+        ts << ImgConverter.timestamp(post, source_dir)
+        ts << Tex2imgConverter.timestamp(post, source_dir)
+        ts << BibConverter.timestamp(post, source_dir)
+        ts << GistConverter.timestamp(post, source_dir)
+        ts << PostLinkConverter.timestamp(post, source_dir)
+        ts << LatexConverter.timestamp(post, source_dir)
+        ts.max
       end
       
     end

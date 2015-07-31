@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.4 - 2015-07-31
+- Add support to \input for tex.
+
 ## 0.1.3 - 2015-07-29
 - Add 'tex2img' support
 

@@ -54,6 +54,19 @@ module Octopress
         lines << '\\usepackage{graphicx}'
         lines << '\\usepackage[all]{hypcap}'
       end
+
+      def get_includes(post, source_dir)
+        includes = []
+        File.open(post, 'r') do |f|
+          while l = f.gets
+            if /{% img (?<markup>.*) %}/ =~ l
+              img = ImgConverter.get_img_label(markup)
+              includes << File.join(source_dir, img['src']) 
+            end
+          end
+        end
+        includes
+      end
     end
   end
 end
